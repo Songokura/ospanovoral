@@ -112,7 +112,22 @@
   var scene = $('#scene'), tl = $$('#tline li'), mobTw = null;
   function ss(a, b, x) { x = Math.min(1, Math.max(0, (x - a) / (b - a))); return x * x * (3 - 2 * x); }
   var prog = { hero: 0, mid: 0, dawn: 0 };
-  function renderSky() { root.style.setProperty('--sky', (0.8 * (PAGE || !scene ? 1 : ss(0.3, 1, prog.hero)) + 1.2 * prog.mid + prog.dawn).toFixed(3)); }
+  var bgEl = $('.bg');
+  /* небо пишется только в слой фона: запись в корень заставляла пересчитывать стили всей страницы на каждом кадре */
+  var bgL = bgEl ? [].slice.call(bgEl.children) : [], lastSky = -1;
+  /* прозрачность слоёв фона считается здесь: закрытые верхним и прозрачные слои выключаются, на 2560px это главная экономия */
+  function renderSky() {
+    var k = 0.8 * (PAGE || !scene ? 1 : ss(0.3, 1, prog.hero)) + 1.2 * prog.mid + prog.dawn;
+    k = Math.round(k * 200) / 200; if (k === lastSky || !bgL.length) return; lastSky = k;
+    var c = function (v) { return Math.min(1, Math.max(0, v)); };
+    var op = [1, c(k), c(k - 1), c(k - 2)], top = 0;
+    op.forEach(function (o, i) { if (o >= 1) top = i; });
+    for (var i = 0; i < 4; i++) {
+      var el = bgL[i], on = op[i] > 0 && i >= top;
+      el.style.visibility = on ? 'visible' : 'hidden'; if (on) el.style.opacity = op[i];
+    }
+    var st = c(0.7 - k * 0.6); bgL[4].style.visibility = st > 0 ? 'visible' : 'hidden'; bgL[4].style.opacity = st;
+  }
   var MARKS = [0, 0.26, 0.5, 0.8], lastOn = 0;
   function setScene(p) {
     prog.hero = p;
@@ -160,9 +175,13 @@
     }, { passive: true });
 
     var mp = { v: 0 }, dp = { v: 0 }, dawn = $('#dawn');
+    var sun = dawn && $('.dawn-sun', dawn), sunRange = 0;
+    function sunMeasure() { if (dawn) sunRange = dawn.offsetHeight * 0.52; }
+    sunMeasure(); window.addEventListener('resize', sunMeasure);
+    renderSky();
     if (dawn && $('.trust')) gsap.to(mp, { v: 1, ease: 'none', onUpdate: function () { prog.mid = mp.v; renderSky(); },
       scrollTrigger: { trigger: '.trust', start: 'top bottom', endTrigger: dawn, end: 'top bottom', scrub: true } });
-    if (dawn) gsap.to(dp, { v: 1, ease: 'none', onUpdate: function () { prog.dawn = ss(0.15, 0.9, dp.v); dawn.style.setProperty('--dp', dp.v.toFixed(3)); renderSky(); },
+    if (dawn) gsap.to(dp, { v: 1, ease: 'none', onUpdate: function () { prog.dawn = ss(0.15, 0.9, dp.v); if (sun) sun.style.setProperty('--sy', (-dp.v * sunRange).toFixed(1) + 'px'); renderSky(); },
       scrollTrigger: { trigger: dawn, start: 'top bottom', end: 'bottom 55%', scrub: true } });
 
     /* вход героя */
