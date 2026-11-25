@@ -579,3 +579,13 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .revs{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:1099px){.revs{grid-template-columns:repeat(2,minmax(0,1fr))}.rev:last-child{grid-column:1/-1}}
 @media(max-width:699px){.revs{grid-template-columns:minmax(0,1fr)}.rev:last-child{grid-column:auto}}
+/* посадочные с 25.11.2026: без строки времени в герое, свои блоки */
+.lp{--tl:36px}
+.notes{margin-top:30px}
+.memo-open{display:grid;gap:12px;margin:0;padding:0}
+.food{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 48px;margin-top:8px}
+.food li{padding-top:14px;border-top:1px solid var(--line)}
+.food li::before{top:calc(14px + .72em)}
+.opgrid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pt-ig{margin-top:36px}
+@media(max-width:899px){.food,.opgrid-3{grid-template-columns:minmax(0,1fr)}}
