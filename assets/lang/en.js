@@ -274,5 +274,11 @@ window.SITE_EN = {
   "art.gr": "Laparoscopic hernia repair: a mesh graft covers the hernia defect from the inside.",
   "art.zh": "The gallbladder with stones is removed completely through 3-4 punctures.",
   "art.gg": "Sympathectomy for hyperhidrosis and Raynaud's disease: interrupting the nerve fibers of the sympathetic trunk.",
-  "alt.ill": "Medical diagram of the operation"
+  "alt.ill": "Medical diagram of the operation",
+  "aw.h": "Awards and certificates",
+  "aw.1": "Badge \"For contribution to healthcare\", Ministry of Healthcare and Social Development of Kazakhstan, 2016",
+  "aw.2": "Jubilee medal for the 50th anniversary of Astana Medical University (1964-2014)",
+  "aw.3": "Certificate to the Eurasian Patent Office medal \"Looking to the Future\" - for a significant contribution to the innovative development of the Eurasian region, 2025",
+  "aw.4": "Presentation of the Eurasian Patent Office medal, 2025",
+  "aw.alt": "Award of Professor Oral Ospanov"
 };

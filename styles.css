@@ -800,3 +800,19 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 }
 /* иллюстрация первого экрана - по центру свободного места справа от текста (25.11.2026) */
 @media(min-width:900px){.hv:has(.hv-art){left:calc(max(var(--g),(100vw - 1320px)/2) + min(43vw - var(--g),600px) + 24px);right:max(var(--g),(100vw - 1320px)/2);width:auto}}
+/* фото в блоках «текст + фото» сопровождает текст, без сдвинутой рамки (25.11.2026) */
+.lt .duo-ph::before,.lt .duo-rev .duo-ph::before{display:none}
+@media(min-width:900px){.duo{align-items:start}.duo>.duo-ph{position:sticky;top:110px}}
+/* награды и сертификаты профессора */
+.awards{margin-top:clamp(48px,6vw,84px)}
+.aw-h{font:300 clamp(1.4rem,2.2vw,2rem)/1.2 var(--fd);margin-bottom:22px}
+.aw-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+.aw{display:flex;flex-direction:column;gap:14px;color:inherit}
+.aw-img{display:block;aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)}
+.aw-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--e)}
+@media(hover:hover) and (pointer:fine){.aw:hover .aw-img img{transform:scale(1.04)}}
+.aw-t{font-size:.9rem;line-height:1.45;color:var(--mut)}
+@media(max-width:899px){.aw-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.map2gis{margin-top:22px;border-radius:18px;overflow:hidden;border:1px solid rgba(11,23,48,.12);background:#eef1f6;height:clamp(260px,24vw,340px)}
+.map2gis iframe{display:block;width:100%;height:100%;border:0}
+@media(max-width:760px){.map2gis{height:400px}.map2gis iframe{width:140%;height:140%;transform:scale(.7143);transform-origin:0 0}}
