@@ -112,7 +112,7 @@
   var scene = $('#scene'), tl = $$('#tline li'), mobTw = null;
   function ss(a, b, x) { x = Math.min(1, Math.max(0, (x - a) / (b - a))); return x * x * (3 - 2 * x); }
   var prog = { hero: 0, mid: 0, dawn: 0 };
-  function renderSky() { root.style.setProperty('--sky', (0.8 * (PAGE ? 1 : ss(0.3, 1, prog.hero)) + 1.2 * prog.mid + prog.dawn).toFixed(3)); }
+  function renderSky() { root.style.setProperty('--sky', (0.8 * (PAGE || !scene ? 1 : ss(0.3, 1, prog.hero)) + 1.2 * prog.mid + prog.dawn).toFixed(3)); }
   var MARKS = [0, 0.26, 0.5, 0.8], lastOn = 0;
   function setScene(p) {
     prog.hero = p;
@@ -140,9 +140,9 @@
     });
     /* телефон: сцена сама проживает ночь -> утро в первом экране, без прокрутки */
     /* посадочные: рассвет проигрывается сам на любой ширине, без закреплённой прокрутки */
-    if (scene) mm.add(PAGE ? '(prefers-reduced-motion: no-preference)' : '(max-width: 899px) and (prefers-reduced-motion: no-preference)', function () {
+    if (tl.length) mm.add(PAGE || !scene ? '(prefers-reduced-motion: no-preference)' : '(max-width: 899px) and (prefers-reduced-motion: no-preference)', function () {
       hp.v = 0; setScene(0);
-      mobTw = gsap.to(hp, { v: 1, duration: 7.5, delay: 1.2, ease: 'power1.inOut', onUpdate: function () { setScene(hp.v); } });
+      mobTw = gsap.to(hp, { v: 1, duration: scene ? 7.5 : 4.5, delay: scene ? 1.2 : 0.9, ease: 'power1.inOut', onUpdate: function () { setScene(hp.v); } });
       return function () { mobTw && mobTw.kill(); mobTw = null; };
     });
     /* ось вех: закреплённый горизонтальный проезд */
@@ -171,6 +171,13 @@
       gsap.from('.hero-col > *', { opacity: 0, y: 26, duration: 1, stagger: 0.08, ease: 'power3.out', delay: 0.15, clearProps: 'all' });
       gsap.from('.tline li', { opacity: 0, y: 14, duration: 0.8, stagger: 0.08, ease: 'power3.out', delay: 0.6, clearProps: 'all' });
     }
+
+    if (!reduce && $('.hv')) {
+      gsap.from('.hv-main', { clipPath: 'inset(100% 0 0 0 round 26px)', duration: 1.4, ease: 'power3.inOut', delay: 0.1, clearProps: 'clipPath' });
+      gsap.from('.hv-main img', { scale: 1.12, duration: 2.2, ease: 'power3.out', clearProps: 'transform' });
+      gsap.from('.hv-col', { opacity: 0, y: 40, duration: 1.2, stagger: 0.12, ease: 'power3.out', delay: 0.35, clearProps: 'opacity,transform' });
+    }
+    if (reduce) setScene(1);
 
     /* заголовки по строкам */
     if (window.SplitText && !reduce) {
@@ -226,6 +233,7 @@
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
     $$('.rv,.ph').forEach(function (el, i) { io.observe(el); });
+    if (!scene && $('.hv')) new IntersectionObserver(function (es) { $('.hero').classList.toggle('paused', !es[0].isIntersecting); }).observe($('.hero'));
     if (scene) new IntersectionObserver(function (es) {
       var vis = es[0].isIntersecting;
       scene.classList.toggle('paused', !vis);

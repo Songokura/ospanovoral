@@ -216,5 +216,6 @@ window.SITE_EN = {
   "dd.gb": "Heartburn and GERD",
   "dd.all": "All areas of treatment",
   "ft.oz": "Obesity and type 2 diabetes treatment",
-  "ft.gb": "Heartburn and GERD treatment"
+  "ft.gb": "Heartburn and GERD treatment",
+  "hero.pc": "Doctor of Medical Sciences, more than 30&nbsp;years of surgical experience"
 };
