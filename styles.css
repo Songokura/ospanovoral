@@ -798,3 +798,5 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 @media(prefers-reduced-motion:reduce){
   .bmi-calc *,.bmi-calc *::before{transition:none!important}
 }
+/* иллюстрация первого экрана - по центру свободного места справа от текста (25.11.2026) */
+@media(min-width:900px){.hv:has(.hv-art){left:calc(max(var(--g),(100vw - 1320px)/2) + min(43vw - var(--g),600px) + 24px);right:max(var(--g),(100vw - 1320px)/2);width:auto}}
