@@ -133,6 +133,13 @@ window.SITE_EN = {
   "bmi.btn": "Discuss at a consultation",
   "bmi.low": "Your BMI is {v}. According to the criteria of the center, surgery is not considered at this index. Questions about treatment can be asked at a consultation.",
   "bmi.ok": "Your BMI is {v}. This value falls within the range at which surgery is discussed with the doctor at a consultation.",
+  "bmi.empty": "Enter your height and weight",
+  "bmi.cu": "Underweight",
+  "bmi.c0": "Normal weight",
+  "bmi.c1": "Overweight",
+  "bmi.c2": "Obesity class&nbsp;I",
+  "bmi.c3": "Obesity class&nbsp;II",
+  "bmi.c4": "Obesity class&nbsp;III",
 
   "fr.kick": "Author's method",
   "fr.h2": "FundoRing - Professor Ospanov's method",

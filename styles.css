@@ -307,33 +307,6 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .ops li{padding:15px 0 15px 30px;border-bottom:1px solid var(--line);position:relative}
 .ops li::before{content:"";position:absolute;left:2px;top:1.55em;width:14px;height:1px;background:var(--gold)}
 .md-ph{min-height:320px}
-.bmi{margin-top:clamp(28px,4vw,52px);border-radius:20px;background:rgba(7,15,34,.42);border:1px solid var(--line);padding:clamp(20px,3vw,44px);display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,4vw,64px);position:relative}
-.bmi h4,.bmi .bmi-h{font:300 clamp(1.3rem,2vw,1.8rem)/1.2 var(--fd);margin-bottom:12px}
-.bmi-l>p{color:var(--mut)}
-.bmi-f{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:26px 0 20px}
-.bmi-f label span{display:block;font-size:.84rem;color:var(--mut);margin-bottom:8px}
-.bmi-f input{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font:300 1.7rem var(--fd);color:#fff;-moz-appearance:textfield;transition:border-color var(--t1) var(--e)}
-.bmi-f input::-webkit-outer-spin-button,.bmi-f input::-webkit-inner-spin-button{-webkit-appearance:none}
-.bmi-f input::placeholder{color:rgba(200,214,245,.3)}
-.bmi-f input:focus{outline:0;border-color:var(--gold)}
-.bmi-res{min-height:4.6em;margin-bottom:18px;color:#e6ebf7}
-.bmi-val{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
-.bmi-val span{font:300 clamp(3.6rem,7vw,6.4rem)/.9 var(--fd);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
-.bmi-val small{letter-spacing:.2em;text-transform:uppercase;font-size:.8rem;color:var(--gold)}
-.scale-bar{position:relative;height:12px;border-radius:6px;display:flex;gap:3px}
-.z{height:100%;border-radius:6px;opacity:.55;transition:opacity var(--t2) var(--e)}
-.z0{width:33.33%;background:rgba(200,214,245,.3)}.z1{width:16.67%;background:#7c8fc4}.z2{width:16.67%;background:#c2ab7c}.z3{flex:1;background:var(--gold)}
-.z.on{opacity:1}
-.mark{position:absolute;top:50%;left:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:#fff;border:6px solid var(--red);box-shadow:0 4px 14px rgba(0,0,0,.4);opacity:0;transition:left var(--t3) var(--e),opacity var(--t2) var(--e)}
-.mark.on{opacity:1}
-.scale-n{position:relative;height:26px;margin-top:10px;font-size:.8rem;color:var(--mut)}
-.scale-n span{position:absolute;transform:translateX(-50%)}
-.scale-n span:first-child{transform:none}.scale-n span:last-child{transform:translateX(-100%)}
-.zones{margin:10px 0 18px}
-.zones li{display:grid;grid-template-columns:92px 1fr;gap:14px;padding:11px 0;border-top:1px solid var(--line);font-size:.93rem;color:var(--mut);transition:color var(--t2) var(--e)}
-.zones b{font:400 1rem var(--fd);color:#d6def0}
-.zones li.on{color:#fff}.zones li.on b{color:var(--gold)}
-.bmi .fine+.fine{margin-top:8px}
 .dirs{display:grid;grid-template-columns:1fr 1fr;column-gap:clamp(32px,6vw,96px);margin-top:clamp(40px,5vw,72px)}
 .dir{padding:34px 0 38px;border-top:1px solid var(--line);position:relative}
 .dir::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .8s var(--e)}
@@ -343,7 +316,7 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .dlink{display:inline-flex;align-items:center;gap:10px;color:#fff;font-weight:500;font-size:.97rem;border-bottom:1px solid rgba(233,196,106,.6);padding-bottom:4px}
 .dlink .ic{transition:transform var(--t2) var(--e)}
 @media(hover:hover) and (pointer:fine){.dlink:hover .ic{transform:translateX(5px)}}
-@media(max-width:899px){.md-top,.bmi,.dirs{grid-template-columns:minmax(0,1fr)}.md-ph{aspect-ratio:4/3;min-height:0;order:-1}.zones li{grid-template-columns:78px 1fr}}
+@media(max-width:899px){.md-top,.bmi,.dirs{grid-template-columns:minmax(0,1fr)}.md-ph{aspect-ratio:4/3;min-height:0;order:-1}}
 
 /* ФундоРинг */
 .sheets{position:relative;aspect-ratio:1/.92}
@@ -710,3 +683,118 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .dirs .dir{padding-top:28px}
 .dir-ill img{object-fit:contain;padding:8px}
 @media(max-width:899px) and (max-height:700px){.hv{height:21svh}}
+
+/* иллюстрации SVG (assets/art), 25.11.2026 */
+.hv-art{display:flex;align-items:center;justify-content:center;height:100%}
+.hv-art img{width:100%;height:100%;max-height:calc(100svh - var(--hdr) - var(--tl) - 60px);object-fit:contain;border:0;box-shadow:none;border-radius:0;aspect-ratio:auto}
+.opc-art{margin:0 calc(-1 * clamp(24px,3vw,44px)) 22px;height:clamp(170px,15vw,220px);display:flex;align-items:center;justify-content:center;padding:14px;border-bottom:1px solid var(--line)}
+.opc-art img{width:100%;height:100%;object-fit:contain}
+.picgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,1.6vw,22px)}
+.pic{background:#fff;border-radius:22px;border:1px solid rgba(11,23,48,.08);overflow:hidden;box-shadow:0 20px 50px -40px rgba(11,23,48,.35)}
+.pic-art{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:14px}
+.pic-art img{width:100%;height:100%;object-fit:contain}
+.pic h3{font:400 clamp(1rem,1.3vw,1.2rem)/1.3 var(--fd);padding:4px 20px 22px;color:var(--ink)}
+.op-duo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,4vw,64px);align-items:center}
+.op-art img{width:100%;height:auto}
+@media(max-width:899px){.picgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.op-duo{grid-template-columns:minmax(0,1fr)}.op-duo .op-art{order:-1}.hv-art img{max-height:none}}
+
+
+/* калькулятор ИМТ (25.11.2026) */
+/* ---------- калькулятор ИМТ ---------- */
+.bmi.bmi-calc{--c-u:#8790a6;--c-0:#5d74a8;--c-1:#8ea4d8;--c-2:#d8c9a3;--c-3:#e9c46a;--c-4:#e89a4c;--cc:#8ea4d8;margin-top:clamp(28px,4vw,52px);border-radius:24px;border:1px solid var(--line);padding:clamp(20px,3vw,44px);position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);grid-template-areas:"head viz" "inp viz" "out viz" "foot foot";grid-template-rows:auto auto 1fr auto;column-gap:clamp(28px,4vw,64px);row-gap:clamp(20px,2.4vw,30px)}
+.bmi.bmi-calc::before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(60% 70% at 78% 26%,rgba(142,164,216,.2),transparent 70%),radial-gradient(40% 50% at 8% 100%,rgba(233,196,106,.09),transparent 70%);pointer-events:none}
+.bmi-head{grid-area:head}
+.bmi-calc .bmi-h{font:300 clamp(1.3rem,2vw,1.8rem)/1.2 var(--fd);margin-bottom:12px}
+.bmi-head>p{color:var(--mut)}
+
+.bmi-f{grid-area:inp;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.bmi-fld{min-width:0;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:18px;padding:14px 16px 12px;transition:border-color var(--t1) var(--e),background var(--t1) var(--e)}
+.bmi-fld:focus-within{border-color:rgba(233,196,106,.7);background:rgba(255,255,255,.08)}
+.bmi-fld label{display:block;font-size:.84rem;color:var(--mut);cursor:pointer}
+.bmi-fld input[type=number]{display:block;width:100%;min-width:0;background:none;border:0;border-radius:6px;padding:2px 0 6px;font:300 clamp(2rem,3.4vw,2.7rem)/1.1 var(--fd);letter-spacing:-.02em;color:#fff;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+.bmi-fld input[type=number]::-webkit-outer-spin-button,.bmi-fld input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.bmi-fld input[type=number]::placeholder{color:rgba(200,214,245,.28)}
+.bmi-fld input[type=number]:focus{outline:0}
+.bmi-fld .bmi-rng{--p:50%;-webkit-appearance:none;appearance:none;display:block;width:100%;height:32px;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;cursor:pointer;touch-action:pan-y}
+.bmi-rng::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--c-1) 0,var(--gold) var(--p),rgba(200,214,245,.18) var(--p))}
+.bmi-rng::-moz-range-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--c-1) 0,var(--gold) var(--p),rgba(200,214,245,.18) var(--p))}
+.bmi-rng::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:#fff;border:6px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.45);transition:transform var(--t1) var(--e)}
+.bmi-rng::-moz-range-thumb{box-sizing:border-box;width:26px;height:26px;border-radius:50%;background:#fff;border:6px solid var(--gold);box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.bmi-rng:active::-webkit-slider-thumb{transform:scale(1.12)}
+.bmi-rng:focus{outline:0}
+.bmi-rng:focus-visible::-webkit-slider-thumb{outline:2px solid #fff;outline-offset:3px}
+.bmi-rng:focus-visible::-moz-range-thumb{outline:2px solid #fff;outline-offset:3px}
+.bmi-rng-n{display:flex;justify-content:space-between;font-size:.72rem;color:var(--mut);opacity:.7;font-variant-numeric:tabular-nums}
+
+.bmi-viz{grid-area:viz;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) clamp(104px,11vw,148px);grid-template-areas:"g fig" "cat fig" "leg leg";column-gap:clamp(12px,2vw,28px);align-items:end;align-content:start}
+.bmi-g{grid-area:g;position:relative;container-type:inline-size}
+.bmi-g svg{display:block;width:100%;height:auto;overflow:visible}
+.bmi-seg{fill:none;stroke-width:14;opacity:.5;transition:opacity var(--t2) var(--e),stroke-width var(--t2) var(--e)}
+.bmi-seg[data-c="u"]{stroke:var(--c-u);opacity:.75}.bmi-seg[data-c="0"]{stroke:var(--c-0)}.bmi-seg[data-c="1"]{stroke:var(--c-1)}.bmi-seg[data-c="2"]{stroke:var(--c-2)}.bmi-seg[data-c="3"]{stroke:var(--c-3)}.bmi-seg[data-c="4"]{stroke:var(--c-4)}
+.bmi-seg.on{opacity:1;stroke-width:18}
+.bmi-tk{fill:none;stroke:rgba(200,214,245,.3);stroke-width:1}
+.bmi-pt{fill:none;stroke:rgba(200,214,245,.1);stroke-width:2.5;stroke-linecap:round}
+.bmi-pr{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:0 100;opacity:0;transition:opacity var(--t2) var(--e)}
+.bmi-lb text{font:500 11px var(--ft);fill:#aebad6;text-anchor:middle;font-variant-numeric:tabular-nums}
+.bmi-nd{opacity:0;transition:opacity var(--t2) var(--e)}
+.bmi-nd path{fill:#fff}
+.bmi-nd circle{fill:#fff;stroke:var(--cc);stroke-width:4;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));transition:stroke var(--t2) var(--e)}
+.bmi-calc.is-on .bmi-nd,.bmi-calc.is-on .bmi-pr{opacity:1}
+.bmi-val{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.3em;text-align:center;pointer-events:none}
+.bmi-val small{letter-spacing:.2em;text-indent:.2em;text-transform:uppercase;font-size:.78rem;color:var(--gold)}
+.bmi-val span{font:300 3rem/.85 var(--fd);font-size:clamp(2.4rem,15.5cqw,5rem);letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bmi-cat{grid-area:cat;display:flex;justify-content:center;margin-top:10px;min-height:2.5em}
+.bmi-cat span{display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:999px;border:1px solid var(--line);font:400 .95rem/1.25 var(--fd);color:var(--mut);text-align:center;transition:color var(--t2) var(--e),border-color var(--t2) var(--e),background var(--t2) var(--e)}
+.bmi-cat span::before{content:"";flex:none;width:9px;height:9px;border-radius:50%;background:rgba(200,214,245,.3);transition:background var(--t2) var(--e)}
+.bmi-calc.is-on .bmi-cat span{color:#fff;border-color:var(--cc);background:rgba(255,255,255,.06)}
+.bmi-calc.is-on .bmi-cat span::before{background:var(--cc)}
+
+.bmi-fig{grid-area:fig;align-self:end}
+.bmi-fig svg{display:block;width:100%;height:auto;overflow:visible}
+.bmi-bd{opacity:.4;transition:opacity var(--t2) var(--e)}
+.bmi-calc.is-on .bmi-bd{opacity:1}
+.bmi-sh{fill:rgba(0,0,0,.35)}
+.bmi-gh{fill:none;stroke:var(--gold);stroke-width:1.2;stroke-dasharray:3 4;stroke-linecap:round;opacity:0;transition:opacity var(--t2) var(--e)}
+.bmi-calc.is-on .bmi-gh{opacity:.85}
+
+.bmi-leg{grid-area:leg;display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.bmi-leg li{display:flex;align-items:center;gap:8px;font-size:.8rem;line-height:1.3;color:var(--mut);transition:color var(--t2) var(--e)}
+.bmi-leg i{flex:none;width:14px;height:6px;border-radius:3px;background:var(--c-0);opacity:.7;transition:opacity var(--t2) var(--e)}
+.bmi-leg [data-c="u"] i{background:var(--c-u);opacity:1}.bmi-leg [data-c="1"] i{background:var(--c-1)}.bmi-leg [data-c="2"] i{background:var(--c-2)}.bmi-leg [data-c="3"] i{background:var(--c-3)}.bmi-leg [data-c="4"] i{background:var(--c-4)}
+.bmi-leg li.on{color:#fff}.bmi-leg li.on i{opacity:1}
+
+.bmi-out{grid-area:out;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.bmi-calc .bmi-res{color:#e6ebf7;min-height:4.6em;margin:0}
+.bmi-foot{grid-area:foot;min-width:0}
+.bmi-zones{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.bmi-zones li{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:.9rem;line-height:1.4;color:var(--mut);transition:color var(--t2) var(--e),border-color var(--t2) var(--e),background var(--t2) var(--e)}
+.bmi-zones b{font:400 1.25rem/1.1 var(--fd);color:#d6def0;font-variant-numeric:tabular-nums;transition:color var(--t2) var(--e)}
+.bmi-zones li.on{color:#fff;border-color:var(--gold);background:rgba(233,196,106,.1)}
+.bmi-zones li.on b{color:var(--gold)}
+.bmi-calc .fine{transition:color var(--t2) var(--e)}
+.bmi-calc .fine+.fine{margin-top:8px}
+
+@media(max-width:899px){
+  .bmi.bmi-calc{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "inp" "viz" "out" "foot";grid-template-rows:none}
+  .bmi-calc .bmi-res{min-height:0}
+  .bmi-calc .bmi-res:empty{display:none}
+  .bmi-out .btn{width:100%}
+  .bmi-viz{max-width:560px;width:100%;justify-self:center}
+}
+@media(max-width:699px){
+  .bmi-zones{grid-template-columns:minmax(0,1fr);gap:8px}
+  .bmi-zones li{padding:13px 16px;gap:4px}
+  .bmi-zones b{font-size:1.1rem}
+}
+@media(max-width:519px){
+  .bmi.bmi-calc{border-radius:20px}
+  .bmi-f{gap:10px}
+  .bmi-fld{padding:12px 12px 10px;border-radius:16px}
+  .bmi-viz{grid-template-columns:86px minmax(0,1fr);grid-template-areas:"g g" "cat cat" "fig leg";column-gap:16px;align-items:center}
+  .bmi-fig{align-self:center;margin-top:16px}
+  .bmi-leg{flex-direction:column;flex-wrap:nowrap;gap:7px;border-top:0;padding-top:0;margin-top:16px}
+  .bmi-leg li{font-size:.84rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .bmi-calc *,.bmi-calc *::before{transition:none!important}
+}

@@ -281,29 +281,121 @@
   bindArrows($('.axis .arrows'), $('.axis-view'), '.ms');
 
   /* ---------- расчёт ИМТ ---------- */
-  var bH = $('#bmiH'), bW = $('#bmiW'), bRes = $('#bmiRes'), bVal = $('#bmiVal'), bMark = $('#bmiMark'), bBtn = $('#bmiBtn'), bNote = $('#bmiNote');
-  var zones = $$('.zones li'), zbars = $$('.scale-bar .z');
+  var bBox = $('#bmi'), bH = $('#bmiH'), bW = $('#bmiW'), bHR = $('#bmiHR'), bWR = $('#bmiWR');
+  var bRes = $('#bmiRes'), bVal = $('#bmiVal'), bBtn = $('#bmiBtn'), bNote = $('#bmiNote'), bCat = $('#bmiCatT');
+  var bNeedle = $('#bmiNeedle'), bProg = $('#bmiProg');
+  var bZones = $$('.bmi-zones li'), bSegs = $$('.bmi-seg'), bLegs = $$('.bmi-leg li');
+  var bPart = {}, bState = { v: 16 }, bTween = null, bShown = false, bFast = false;
+  $$('#bmiFig [data-p]').forEach(function (el) { bPart[el.getAttribute('data-p')] = el; });
+
+  function bLerp(a, b, f) { return a + (b - a) * f; }
+  function bN(x) { return Math.round(x * 10) / 10; }
+  function bSeg(p0, p1, p2, p3) {
+    return 'C' + bN(p1[0] + (p2[0] - p0[0]) / 6) + ' ' + bN(p1[1] + (p2[1] - p0[1]) / 6) + ' ' +
+      bN(p2[0] - (p3[0] - p1[0]) / 6) + ' ' + bN(p2[1] - (p3[1] - p1[1]) / 6) + ' ' + bN(p2[0]) + ' ' + bN(p2[1]);
+  }
+  function bPath(p, closed) {
+    var n = p.length, s = 'M' + bN(p[0][0]) + ' ' + bN(p[0][1]), i;
+    if (closed) { for (i = 0; i < n; i++) s += bSeg(p[(i - 1 + n) % n], p[i], p[(i + 1) % n], p[(i + 2) % n]); return s + 'Z'; }
+    for (i = 0; i < n - 1; i++) s += bSeg(p[Math.max(0, i - 1)], p[i], p[i + 1], p[Math.min(n - 1, i + 2)]);
+    return s;
+  }
+  function bMirror(p) { return p.map(function (q) { return [140 - q[0], q[1]]; }); }
+  function bBody(f) {
+    var c = 70;
+    return {
+      hx: bLerp(12.5, 16, f), nk: bLerp(6.5, 11, f), sh: bLerp(27, 38, f), ch: bLerp(22.5, 40, f),
+      wa: bLerp(18, 49, f), wy: bLerp(116, 126, f), hp: bLerp(23.5, 48, f), th: bLerp(23, 42, f),
+      kn: bLerp(15.5, 25, f), cf: bLerp(15.5, 24, f), an: bLerp(10, 14.5, f),
+      ae: bLerp(31.5, 55, f), ah: bLerp(33, 57, f), aw: bLerp(9.5, 18, f), c: c
+    };
+  }
+  function bFigure(v) {
+    if (!bPart.torso) return;
+    var f = Math.min(1, Math.max(-0.14, (v - 19.5) / 28.5)), b = bBody(f), c = b.c;
+    var half = [[c + b.nk, 36], [c + b.nk + 1, 46], [c + b.sh, 57], [c + b.ch, 84], [c + b.wa, b.wy], [c + b.hp, 148], [c + b.hp * .72, 168]];
+    var torso = half.concat([[c, 173]], bMirror(half).reverse());
+    var leg = [[c + b.hp - 1, 148], [c + b.th, 178], [c + b.kn, 212], [c + b.cf, 232], [c + b.an, 258], [c + b.an + 2.5, 269], [c + b.an - 4, 272],
+      [c + 2.5, 268], [c + 3.5, 258], [c + 3, 232], [c + 2.5, 212], [c + 1, 180], [c + 2, 156]];
+    var arm = 'M' + bN(c + b.sh - 4) + ' 63Q' + bN(c + b.ae + 1) + ' 96 ' + bN(c + b.ae) + ' 120T' + bN(c + b.ah) + ' 168';
+    var armL = 'M' + bN(c - b.sh + 4) + ' 63Q' + bN(c - b.ae - 1) + ' 96 ' + bN(c - b.ae) + ' 120T' + bN(c - b.ah) + ' 168';
+    bPart.torso.setAttribute('d', bPath(torso, true));
+    bPart.legR.setAttribute('d', bPath(leg, true));
+    bPart.legL.setAttribute('d', bPath(bMirror(leg), true));
+    bPart.armR.setAttribute('d', arm); bPart.armL.setAttribute('d', armL);
+    bPart.armR.setAttribute('stroke-width', bN(b.aw)); bPart.armL.setAttribute('stroke-width', bN(b.aw));
+    bPart.head.setAttribute('rx', bN(b.hx));
+  }
+  function bGhost() {
+    if (!bPart.ghost) return;
+    var b = bBody((22 - 19.5) / 28.5), c = b.c;
+    var side = [[c + b.sh, 57], [c + b.ch, 84], [c + b.wa, b.wy], [c + b.hp, 148], [c + b.th, 178], [c + b.kn, 212], [c + b.cf, 232], [c + b.an, 258]];
+    bPart.ghost.setAttribute('d', bPath(side) + bPath(bMirror(side)));
+  }
+  function bDraw() {
+    var v = bState.v, g = Math.min(50, Math.max(16, v)), k = (g - 16) / 34;
+    if (bNeedle) bNeedle.setAttribute('transform', 'rotate(' + bN(k * 180) + ' 150 150)');
+    if (bProg) bProg.style.strokeDasharray = bN(k * 100) + ' 100';
+    if (bShown) bVal.textContent = v.toFixed(1).replace('.', ',');
+    bFigure(v);
+  }
+  function bGo(v, dur) {
+    if (bTween) { bTween.kill(); bTween = null; }
+    if (reduce || !window.gsap || !dur) { bState.v = v; bDraw(); return; }
+    bTween = window.gsap.to(bState, { v: v, duration: dur, ease: 'power3.out', onUpdate: bDraw, onComplete: bDraw });
+  }
+  function bFill(r) {
+    if (!r) return;
+    var a = +r.min, b = +r.max;
+    r.style.setProperty('--p', bN((r.value - a) / (b - a) * 100) + '%');
+  }
   function bmiCalc() {
-    if (!bH) return;
-    var h = parseFloat(bH.value), w = parseFloat(bW.value);
+    if (!bBox || !bH || !bW) return;
+    var h = parseFloat(String(bH.value).replace(',', '.')), w = parseFloat(String(bW.value).replace(',', '.'));
     var ok = h >= 120 && h <= 220 && w >= 35 && w <= 300;
+    var hello = 'Здравствуйте! ';
     if (!ok) {
-      bVal.textContent = '-'; bRes.textContent = ''; bMark.classList.remove('on'); if (bNote) bNote.classList.remove('on');
-      zones.forEach(function (z) { z.classList.remove('on'); }); zbars.forEach(function (z) { z.classList.remove('on'); });
-      bBtn.href = WA + encodeURIComponent('Здравствуйте! Хочу обсудить лечение на консультации.');
+      bShown = false;
+      bBox.classList.remove('is-on');
+      bVal.textContent = '-'; bRes.textContent = '';
+      if (bCat) bCat.innerHTML = t('bmi.empty');
+      if (bNote) bNote.classList.remove('on');
+      bZones.concat(bSegs, bLegs).forEach(function (el) { el.classList.remove('on'); });
+      bBtn.href = WA + encodeURIComponent(hello + 'Хочу обсудить лечение на консультации.');
+      bGo(22, bFast ? .3 : .7);
       return;
     }
     var v = w / Math.pow(h / 100, 2), vs = v.toFixed(1).replace('.', ',');
-    bVal.textContent = vs;
-    bRes.textContent = t(v < 27.5 ? 'bmi.low' : v < 30 ? 'bmi.asia' : 'bmi.ok').replace('{v}', vs);
-    if (bNote) bNote.classList.toggle('on', v >= 27.5 && v < 30);
-    bMark.style.left = Math.min(100, Math.max(0, (v - 20) / 30 * 100)) + '%'; bMark.classList.add('on');
+    var c = v < 18.5 ? 'u' : v < 25 ? '0' : v < 30 ? '1' : v < 35 ? '2' : v < 40 ? '3' : '4';
     var z = v >= 40 ? 3 : v >= 35 ? 2 : v >= 30 ? 1 : 0;
-    zones.forEach(function (li) { li.classList.toggle('on', +li.getAttribute('data-z') === z); });
-    zbars.forEach(function (b, i) { b.classList.toggle('on', i === z); });
-    bBtn.href = WA + encodeURIComponent('Здравствуйте! Мой рост ' + h + ' см, вес ' + w + ' кг, ИМТ ' + vs + '. Хочу обсудить лечение на консультации.');
+    bShown = true;
+    bBox.classList.add('is-on');
+    bBox.style.setProperty('--cc', 'var(--c-' + c + ')');
+    bRes.textContent = t(v < 27.5 ? 'bmi.low' : v < 30 ? 'bmi.asia' : 'bmi.ok').replace('{v}', vs);
+    if (bCat) bCat.innerHTML = t('bmi.c' + c);
+    if (bNote) bNote.classList.toggle('on', v >= 27.5 && v < 30);
+    bZones.forEach(function (li) { li.classList.toggle('on', +li.getAttribute('data-z') === z); });
+    bSegs.concat(bLegs).forEach(function (el) { el.classList.toggle('on', el.getAttribute('data-c') === c); });
+    bBtn.href = WA + encodeURIComponent(hello + 'Мой рост ' + h + ' см, вес ' + w + ' кг, ИМТ ' + vs + '. Хочу обсудить лечение на консультации.');
+    bGo(v, bFast ? .35 : .9);
   }
-  [bH, bW].forEach(function (i) { if (i) i.addEventListener('input', bmiCalc); });
+  function bBind(num, rng, other, otherRng) {
+    if (!num || !rng) return;
+    num.addEventListener('input', function () {
+      var x = parseFloat(String(num.value).replace(',', '.'));
+      if (num.value === '') { rng.value = rng.defaultValue; bFill(rng); }
+      else if (x >= +rng.min && x <= +rng.max) { rng.value = Math.round(x); bFill(rng); }
+      bFast = false; bmiCalc();
+    });
+    rng.addEventListener('input', function () {
+      num.value = rng.value; bFill(rng);
+      if (other && otherRng && other.value === '') other.value = otherRng.value;
+      bFast = true; bmiCalc();
+    });
+    bFill(rng);
+  }
+  bBind(bH, bHR, bW, bWR); bBind(bW, bWR, bH, bHR);
+  if (bBox) { bGhost(); bState.v = 22; bDraw(); }
 
   /* ---------- форма записи ---------- */
   var form = $('#form');
