@@ -23,10 +23,10 @@ window.PAGE_EN = {
   "oz.o.h2": "Types of bariatric surgery",
   "oz.o.lead": "The method is chosen based on BMI, the condition of the esophagus and stomach, the presence of GERD and previous surgery.",
   "oz.c1h": "FundoRing",
-  "oz.c1p": "One-anastomosis gastric bypass combined with fundoplication made from the excluded part of the stomach. Designed for patients who need not only weight loss but also prevention of reflux and late weight regain.",
+  "oz.c1p": "One-anastomosis gastric bypass combined with fundoplication made from the excluded part of the stomach. Designed for patients who need not only weight loss but also prevention of reflux and late weight regain. Pronounced antireflux and anti-dumping effect.",
   "oz.c1a": "More about the method",
-  "oz.c2p": "Significant and stable weight loss, better course of type&nbsp;2 diabetes, less acid reflux. Lifelong vitamin intake is required after surgery.",
-  "oz.c3p": "A technically simpler operation with marked weight loss. The risk of bile (biliary) reflux is taken into account when choosing the method.",
+  "oz.c2p": "Classic bypass with two anastomoses: it lowers the risk of bile reflux into the small gastric pouch. Significant and stable weight loss, better course of type&nbsp;2 diabetes. Lifelong vitamin intake is required after surgery.",
+  "oz.c3p": "A technically simpler operation with marked weight loss. Dumping syndrome is milder than after Roux-en-Y bypass, and internal hernias practically do not form. The main drawback is bile reflux into the stomach and esophagus.",
   "oz.c4p": "Marked weight loss without intestinal bypass and a short recovery period. For patients with heartburn and reflux, a sleeve is not the optimal choice.",
   "oz.o.note": "The final choice of operation is made after an in-person consultation with a bariatric surgeon and a full examination."
 };

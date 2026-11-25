@@ -22,7 +22,7 @@ window.PAGE_EN = {
   "gb.t2b": "pH-impedance monitoring",
   "gb.s.kick": "Symptoms",
   "gb.s.h2": "Symptoms that call for a GERD examination",
-  "gb.s.lead": "The link between symptoms and reflux is established by examination.",
+  "gb.s.lead": "Heartburn and chest pain get worse at night, after a large meal, with physical exertion and when bending over. The link between symptoms and reflux is established by examination.",
   "gb.y1": "Heartburn",
   "gb.y2": "Belching",
   "gb.y3": "Pain behind the breastbone",
