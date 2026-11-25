@@ -140,7 +140,6 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .pl{-webkit-mask:var(--m) 50% 100%/cover no-repeat;mask:var(--m) 50% 100%/cover no-repeat}
 .pl-far{--m:url(assets/img/clouds-far.png);background:color-mix(in srgb,#22355f,#e8e4dc calc(var(--day)*100%))}
 .pl-mid{--m:url(assets/img/clouds-mid.png);background:linear-gradient(180deg,color-mix(in srgb,#2b3d68,#fffdf8 calc(var(--day)*100%)) 35%,color-mix(in srgb,#1c2c52,#dfe3ee calc(var(--day)*100%)));opacity:.9}
-.pl-near{--m:url(assets/img/clouds-near.png);background:linear-gradient(180deg,color-mix(in srgb,#30426e,#fffdf9 calc(var(--day)*100%)) 30%,color-mix(in srgb,#1a2a50,#e4e6ee calc(var(--day)*100%)))}
 .hz1{background:linear-gradient(180deg,transparent 52%,color-mix(in srgb,rgba(40,62,112,.75),rgba(246,236,214,.8) calc(var(--day)*100%)))}
 .hz2{background:linear-gradient(180deg,transparent 66%,color-mix(in srgb,rgba(30,48,92,.45),rgba(240,232,214,.75) calc(var(--day)*100%)))}
 .hz3{background:linear-gradient(180deg,transparent 80%,rgb(233 196 106/calc(var(--dawn)*.35)))}
@@ -357,17 +356,7 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .fring .dash{stroke-dasharray:2 12;stroke:rgba(233,196,106,.9)}
 
 /* рассвет - переход к светлой части */
-.dawn{position:relative;height:max(78vh,46vw);overflow:hidden;--dp:0;margin-top:clamp(20px,4vw,60px)}
-.dawn .pl{top:auto;height:max(46vh,37.6vw)}
-.dawn .pl-far{background:#a7a9c4;opacity:.75}
-.dawn .pl-mid{background:linear-gradient(180deg,#6d7ba6,#9aa3c0)}
-.dawn .pl-near{background:linear-gradient(180deg,#4a5c8a 40%,#8d99b8)}
-.dawn-sun{position:absolute;left:58%;bottom:-8%;width:clamp(90px,11vw,170px);aspect-ratio:1;will-change:transform;transform:translate3d(0,var(--sy,0px),0)}
-.dawn-sun::before{content:"";position:absolute;inset:-260%;border-radius:50%;background:radial-gradient(circle,rgba(244,214,140,.62) 12%,rgba(244,206,130,.34) 26%,rgba(244,200,120,.14) 44%,transparent 68%)}
-.dawn-sun::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,#fff8e2,#f6d98a 62%,#eec25f)}
-.dawn .pl{will-change:transform}
 .bg-l,.bg-stars{will-change:opacity}
-.dawn-fog{position:absolute;inset:0;background:linear-gradient(180deg,transparent 46%,rgba(244,239,230,.6) 78%,var(--morning) 100%)}
 
 /* светлая часть */
 .day{--ink:#0b1730;--mut:#4d5870;--line:rgba(11,23,48,.15);color:var(--ink)}
@@ -565,3 +554,6 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 @media(max-width:899px){.hv{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}.hv-main img{aspect-ratio:auto;height:100%;max-height:none;flex:1}}
 @media(max-width:899px){.hv{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.hv-main{order:-1}.hv-main img{object-position:50% 25%}}
 .sec{padding:clamp(56px,6vw,100px) 0}
+/* с 25.11.2026 без перехода «рассвет»: светлая часть со своим фоном, мягкий вход в нижнем отступе тёмного блока */
+.day{--fade:clamp(56px,6vw,100px);background:linear-gradient(180deg,rgba(244,239,230,0),var(--morning) var(--fade));margin-top:calc(-1 * var(--fade));padding-top:var(--fade)}
+.day::before,.day::after{top:var(--fade)}

@@ -174,15 +174,12 @@
       var m = view.scrollWidth - view.clientWidth; if (m > 0) axis.style.setProperty('--ap', (view.scrollLeft / m).toFixed(3));
     }, { passive: true });
 
-    var mp = { v: 0 }, dp = { v: 0 }, dawn = $('#dawn');
-    var sun = dawn && $('.dawn-sun', dawn), sunRange = 0;
-    function sunMeasure() { if (dawn) sunRange = dawn.offsetHeight * 0.52; }
-    sunMeasure(); window.addEventListener('resize', sunMeasure);
+    /* небо светлеет от полосы доверия к началу светлой части, последний шаг - на входе в неё */
+    var mp = { v: 0 }, day = $('.day');
     renderSky();
-    if (dawn && $('.trust')) gsap.to(mp, { v: 1, ease: 'none', onUpdate: function () { prog.mid = mp.v; renderSky(); },
-      scrollTrigger: { trigger: '.trust', start: 'top bottom', endTrigger: dawn, end: 'top bottom', scrub: true } });
-    if (dawn) gsap.to(dp, { v: 1, ease: 'none', onUpdate: function () { prog.dawn = ss(0.15, 0.9, dp.v); if (sun) sun.style.setProperty('--sy', (-dp.v * sunRange).toFixed(1) + 'px'); renderSky(); },
-      scrollTrigger: { trigger: dawn, start: 'top bottom', end: 'bottom 55%', scrub: true } });
+    if (day && $('.trust')) gsap.to(mp, { v: 1, ease: 'none', onUpdate: function () { prog.mid = mp.v; renderSky(); },
+      scrollTrigger: { trigger: '.trust', start: 'top bottom', endTrigger: day, end: 'top bottom', scrub: true } });
+    /* светлая часть со своим фоном (styles.css .day), общий фон дальше сумерек не светлеет */
 
     /* вход героя */
     if (!reduce && scene) {
