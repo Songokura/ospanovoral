@@ -189,8 +189,11 @@
     }
 
     if (!reduce && $('.hv')) {
-      gsap.from('.hv-main', { clipPath: 'inset(100% 0 0 0 round 26px)', duration: 1.4, ease: 'power3.inOut', delay: 0.1, clearProps: 'clipPath' });
-      gsap.from('.hv-main img', { scale: 1.12, duration: 2.2, ease: 'power3.out', clearProps: 'transform' });
+      if ($('.hv-art')) gsap.from('.hv-art', { opacity: 0, y: 24, duration: 1, ease: 'power2.out', delay: 0.2, clearProps: 'opacity,transform' });
+      else {
+        gsap.from('.hv-main', { clipPath: 'inset(100% 0 0 0 round 26px)', duration: 1.4, ease: 'power3.inOut', delay: 0.1, clearProps: 'clipPath' });
+        gsap.from('.hv-main img', { scale: 1.12, duration: 2.2, ease: 'power3.out', clearProps: 'transform' });
+      }
     }
     if (reduce) setScene(1);
 
