@@ -359,9 +359,9 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .bg-l,.bg-stars{will-change:opacity}
 
 /* светлая часть */
-.day{--ink:#0b1730;--mut:#4d5870;--line:rgba(11,23,48,.15);color:var(--ink)}
-.day .kick{color:#9a7420}
-.day .ph{background:#e6dfd2}
+.lt{--ink:#0b1730;--mut:#4d5870;--line:rgba(11,23,48,.15);color:var(--ink);background:var(--morning)}
+.lt .kick{color:#9a7420}
+.lt .ph{background:#e6dfd2}
 .head-row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
 .car{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-inline:max(var(--g),calc((100vw - 1320px)/2));scroll-padding-inline:max(var(--g),calc((100vw - 1320px)/2))}
 .car::-webkit-scrollbar{display:none}
@@ -443,22 +443,22 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 }
 
 /* светлая часть: свет утра из окна и фактура бумаги */
-.day{position:relative;isolation:isolate}
-.day::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+.lt{position:relative;isolation:isolate}
+.lt::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(118deg,transparent 0 56%,rgba(255,222,160,.30) 56% 64%,transparent 64% 65.4%,rgba(255,222,160,.30) 65.4% 73%,transparent 73% 74.4%,rgba(255,222,160,.22) 74.4% 81%,transparent 81%) 0 0/100% 1700px repeat-y;
   -webkit-mask:linear-gradient(180deg,#000 0,rgba(0,0,0,.6) 35%,transparent 70%) 0 0/100% 1700px repeat-y;mask:linear-gradient(180deg,#000 0,rgba(0,0,0,.6) 35%,transparent 70%) 0 0/100% 1700px repeat-y}
-.day::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
+.lt::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.day .duo-ph{position:relative}
-.day .duo-ph::before{content:"";position:absolute;inset:-14px 14px 14px -14px;border:1px solid rgba(184,148,67,.42);border-radius:26px;pointer-events:none}
-.day .duo-rev .duo-ph::before{inset:-14px -14px 14px 14px}
+.lt .duo-ph{position:relative}
+.lt .duo-ph::before{content:"";position:absolute;inset:-14px 14px 14px -14px;border:1px solid rgba(184,148,67,.42);border-radius:26px;pointer-events:none}
+.lt .duo-rev .duo-ph::before{inset:-14px -14px 14px 14px}
 .ph-light{box-shadow:0 44px 80px -46px rgba(11,23,48,.5)}
-.day .prep b{color:#9a7420}
+.lt .prep b{color:#9a7420}
 .faq-side{position:sticky;top:110px;align-self:start}
 .faq-side .head{margin-bottom:28px}
 .faq-ph{margin-bottom:24px}
 .bmi .fine.on{color:var(--gold)}
-@media(max-width:899px){.faq-side{position:relative;top:0}.day .duo-ph::before,.day .duo-rev .duo-ph::before{inset:-10px 10px 10px -10px}.faq-ph{display:none}}
+@media(max-width:899px){.faq-side{position:relative;top:0}.lt .duo-ph::before,.lt .duo-rev .duo-ph::before{inset:-10px 10px 10px -10px}.faq-ph{display:none}}
 
 /* низкие окна ноутбука (1280x720, 1366x768): кикер, h1, лид, обе кнопки и ссылка - без прокрутки и не под шапкой */
 @media(min-width:900px) and (max-height:820px){
@@ -521,7 +521,7 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
   .dd a[aria-current="page"]{box-shadow:none;color:var(--gold)}
 }
 .sec-x .dirs{margin-top:0}
-.day .dlink{color:var(--ink);border-color:rgba(154,116,32,.5)}
+.lt .dlink{color:var(--ink);border-color:rgba(154,116,32,.5)}
 
 /* ГЕРОЙ с 25.11.2026: портрет профессора и две колонки кадров центра (вместо нарисованной палаты) */
 .hv{position:absolute;top:calc(var(--hdr) + 22px);bottom:calc(var(--tl) + 30px);left:calc(max(var(--g),(100vw - 1320px)/2) + min(43vw - var(--g),600px) + 48px);right:max(var(--g),(100vw - 1320px)/2);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr) minmax(0,1fr);gap:clamp(10px,1.1vw,16px)}
@@ -555,8 +555,6 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 @media(max-width:899px){.hv{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}.hv-main{order:-1}.hv-main img{object-position:50% 25%}}
 .sec{padding:clamp(56px,6vw,100px) 0}
 /* с 25.11.2026 без перехода «рассвет»: светлая часть со своим фоном, мягкий вход в нижнем отступе тёмного блока */
-.day{--fade:clamp(56px,6vw,100px);background:linear-gradient(180deg,rgba(244,239,230,0),var(--morning) var(--fade));margin-top:calc(-1 * var(--fade));padding-top:var(--fade)}
-.day::before,.day::after{top:var(--fade)}
 
 /* отзывы пациентов (со старого сайта) */
 .revs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,1.6vw,22px);margin:clamp(40px,5vw,72px) 0 36px}
@@ -589,3 +587,34 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .opgrid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .pt-ig{margin-top:36px}
 @media(max-width:899px){.food,.opgrid-3{grid-template-columns:minmax(0,1fr)}}
+/* карточка ожирения на главной без списка операций (25.11.2026): фото горизонтальное, по центру текста */
+.md-top{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:center}
+.md-ph{min-height:0;aspect-ratio:4/3}
+.md-ph img{object-position:50% 45%}
+.md-txt .btns{margin-top:32px}
+@media(max-width:899px){.md-top{grid-template-columns:minmax(0,1fr)}.md-ph{aspect-ratio:4/3}.md-txt .btns .btn{width:100%}}
+
+/* чередование тёмных и светлых блоков (25.11.2026): светлый блок - .lt, тёмный - общий ночной фон */
+.btn-ink{color:#fff;border-color:rgba(200,214,245,.45)}
+.btn-ink:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.lt .btn-ink{color:var(--ward);border-color:rgba(11,23,48,.3)}
+.lt .btn-ink:hover{border-color:var(--ward);background:rgba(11,23,48,.05)}
+.lt .btn-line{color:var(--ward);border-color:rgba(11,23,48,.3)}
+.lt .btn-line:hover{border-color:var(--ward);background:rgba(11,23,48,.05)}
+.lt .bmi{--ink:#f1f3f8;--mut:#aebad6;--line:rgba(160,180,225,.2);color:var(--ink);background:linear-gradient(160deg,#0e1b38,#1b3058);border-color:transparent;box-shadow:0 40px 80px -50px rgba(11,23,48,.6)}
+.lt .bmi .btn-line{color:#fff;border-color:rgba(200,214,245,.45)}
+.lt .opc{background:#fff;border-color:rgba(11,23,48,.1);box-shadow:0 20px 50px -40px rgba(11,23,48,.35)}
+.lt .opc-tag{color:#9a7420}
+.lt .sym li{background:#fff;border-color:rgba(11,23,48,.12)}
+.lt .sym li:first-child{color:var(--ink);background:rgba(233,196,106,.22);border-color:rgba(184,148,67,.5)}
+.lt .step::before{background:#b9c1d4}
+.lt .ms::before{background:#b89443}
+.lt .ms small,.lt .axis-y{color:#9a7420}
+.lt .memo li::before{background:#b89443}
+.prep b{color:var(--gold)}
+.lt .prep b{color:#9a7420}
+.faq details[open] summary i{color:var(--night)}
+.form input,.form select,.form textarea{color:#0b1730}
+.form-ok{color:var(--night)}
+.lt .main-dir{--ink:#f1f3f8;--mut:#aebad6;--line:rgba(160,180,225,.2);color:var(--ink);background:linear-gradient(160deg,#0e1b38,#1b3058)}
+.lt .num{-webkit-text-stroke-color:#b9a06a}.lt .step.act .num{-webkit-text-stroke-color:#9a7420}

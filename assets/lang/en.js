@@ -252,5 +252,13 @@ window.SITE_EN = {
   "pr.jul": "July",
   "pr.sep": "September",
   "pr.m10": "Master class in bariatric and metabolic surgery in Dushanbe.",
-  "pr.m11": "\"Days of Kazakh Medicine\" in Tajikistan: the professor shared his experience in bariatric surgery."
+  "pr.m11": "\"Days of Kazakh Medicine\" in Tajikistan: the professor shared his experience in bariatric surgery.",
+  "dd.gg": "Hyperhidrosis and Raynaud's disease",
+  "dd.zh": "Gallstone disease",
+  "dd.gr": "Hernias",
+  "tr.more": "More about treatment",
+  "x.go": "Learn more",
+  "pg.s.op": "How the operation is performed",
+  "pg.s.opk": "Surgery",
+  "pg.s.adk": "Advantages"
 };
