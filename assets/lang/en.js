@@ -209,5 +209,7 @@ window.SITE_EN = {
   "bmi.asia": "Your BMI is {v}. For patients of Asian origin, this index falls within the range at which surgery is discussed with the doctor at a consultation.",
   "fq.btn": "Ask a question on WhatsApp",
   "alt.team2": "Professor Ospanov with the center team in his office",
-  "a.mbar": "Contact the center"
+  "a.mbar": "Contact the center",
+  "oz.more": "Indications, procedures and BMI calculator",
+  "gb.more": "GERD diagnostics and surgery"
 };

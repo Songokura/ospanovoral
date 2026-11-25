@@ -7,6 +7,8 @@
   var WA = 'https://wa.me/77779014647?text=';
   var cur = d.currentScript;
   var VER = cur && cur.src.indexOf('?v=') > -1 ? cur.src.split('?v=')[1] : '1';
+  var BASE = cur ? cur.src.replace(/script\.js.*$/, '') : '';
+  var PAGE = d.body.getAttribute('data-page');
   root.classList.add('js');
 
   /* ---------- языки ---------- */
@@ -43,11 +45,22 @@
     if (l !== 'kk' && l !== 'en') l = 'ru';
     if (save) { try { localStorage.setItem('lang', l); } catch (e) {} }
     if (dict[l]) return applyLang(l);
-    var s = d.createElement('script');
-    s.src = 'assets/lang/' + l + '.js?v=' + VER;
-    s.onload = function () { dict[l] = (l === 'kk' ? window.SITE_KK : window.SITE_EN) || {}; applyLang(l); };
-    s.onerror = function () { applyLang('ru'); };
-    d.head.appendChild(s);
+    function load(src, done) {
+      var s = d.createElement('script');
+      s.src = src + '?v=' + VER; s.onload = done; s.onerror = function () { applyLang('ru'); };
+      d.head.appendChild(s);
+    }
+    var U = l === 'kk' ? 'KK' : 'EN';
+    load(BASE + 'assets/lang/' + l + '.js', function () {
+      var m = {}, k, src = window['SITE_' + U] || {};
+      for (k in src) m[k] = src[k];
+      if (!PAGE) { dict[l] = m; return applyLang(l); }
+      load(BASE + 'assets/lang/' + PAGE + '-' + l + '.js', function () {
+        var pg = window['PAGE_' + U] || {};
+        for (k in pg) m[k] = pg[k];
+        dict[l] = m; applyLang(l);
+      });
+    });
   }
   $$('.lang button').forEach(function (b) {
     b.addEventListener('click', function () { setLang(b.getAttribute('data-lang'), true); });
@@ -98,7 +111,7 @@
   /* ---------- сцена героя: время суток ---------- */
   var scene = $('#scene'), tl = $$('#tline li'), mobTw = null;
   function ss(a, b, x) { x = Math.min(1, Math.max(0, (x - a) / (b - a))); return x * x * (3 - 2 * x); }
-  var prog = { hero: 0, mid: 0, dawn: 0 };
+  var prog = { hero: scene ? 0 : 1, mid: 0, dawn: 0 }; /* посадочные: сцены нет, ночь уже прожита */
   function renderSky() { root.style.setProperty('--sky', (0.8 * ss(0.3, 1, prog.hero) + 1.2 * prog.mid + prog.dawn).toFixed(3)); }
   var MARKS = [0, 0.26, 0.5, 0.8], lastOn = 0;
   function setScene(p) {
@@ -121,19 +134,19 @@
   if (gsap && ST) {
     var mm = gsap.matchMedia();
     var hp = { v: 0 };
-    mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', function () {
+    if (scene) mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', function () {
       gsap.to(hp, { v: 1, ease: 'none', onUpdate: function () { setScene(hp.v); },
         scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=190%', pin: true, scrub: 0.7, anticipatePin: 1 } });
     });
     /* телефон: сцена сама проживает ночь -> утро в первом экране, без прокрутки */
-    mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', function () {
+    if (scene) mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', function () {
       hp.v = 0; setScene(0);
       mobTw = gsap.to(hp, { v: 1, duration: 7.5, delay: 1.2, ease: 'power1.inOut', onUpdate: function () { setScene(hp.v); } });
       return function () { mobTw && mobTw.kill(); mobTw = null; };
     });
     /* ось вех: закреплённый горизонтальный проезд */
-    var axis = $('#axis'), track = $('#axisTrack'), view = $('.axis-view', axis);
-    mm.add('(min-width: 1000px) and (prefers-reduced-motion: no-preference)', function () {
+    var axis = $('#axis'), track = $('#axisTrack'), view = axis && $('.axis-view', axis);
+    if (axis) mm.add('(min-width: 1000px) and (prefers-reduced-motion: no-preference)', function () {
       axis.classList.add('pinned'); view.scrollLeft = 0;
       var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth); };
       var tw = gsap.to(track, { x: function () { return -dist(); }, ease: 'none',
@@ -141,21 +154,28 @@
           onUpdate: function (self) { axis.style.setProperty('--ap', self.progress.toFixed(3)); } } });
       return function () { axis.classList.remove('pinned'); gsap.set(track, { x: 0 }); tw.kill(); };
     });
-    view.addEventListener('scroll', function () {
+    if (view) view.addEventListener('scroll', function () {
       var m = view.scrollWidth - view.clientWidth; if (m > 0) axis.style.setProperty('--ap', (view.scrollLeft / m).toFixed(3));
     }, { passive: true });
 
     var mp = { v: 0 }, dp = { v: 0 }, dawn = $('#dawn');
-    gsap.to(mp, { v: 1, ease: 'none', onUpdate: function () { prog.mid = mp.v; renderSky(); },
+    if (dawn && $('.trust')) gsap.to(mp, { v: 1, ease: 'none', onUpdate: function () { prog.mid = mp.v; renderSky(); },
       scrollTrigger: { trigger: '.trust', start: 'top bottom', endTrigger: dawn, end: 'top bottom', scrub: true } });
-    gsap.to(dp, { v: 1, ease: 'none', onUpdate: function () { prog.dawn = ss(0.15, 0.9, dp.v); dawn.style.setProperty('--dp', dp.v.toFixed(3)); renderSky(); },
+    if (dawn) gsap.to(dp, { v: 1, ease: 'none', onUpdate: function () { prog.dawn = ss(0.15, 0.9, dp.v); dawn.style.setProperty('--dp', dp.v.toFixed(3)); renderSky(); },
       scrollTrigger: { trigger: dawn, start: 'top bottom', end: 'bottom 55%', scrub: true } });
 
     /* вход героя */
-    if (!reduce) {
+    if (!reduce && scene) {
       gsap.from('.scene', { opacity: 0.3, duration: 1.2, ease: 'power2.out' });
       gsap.from('.hero-col > *', { opacity: 0, y: 26, duration: 1, stagger: 0.08, ease: 'power3.out', delay: 0.15, clearProps: 'all' });
       gsap.from('.tline li', { opacity: 0, y: 14, duration: 0.8, stagger: 0.08, ease: 'power3.out', delay: 0.6, clearProps: 'all' });
+    }
+
+    if (!reduce && $('.phero')) {
+      gsap.from('.phero-txt > *', { opacity: 0, y: 26, duration: 1, stagger: 0.07, ease: 'power3.out', delay: 0.1, clearProps: 'all' });
+      gsap.fromTo('.arch', { clipPath: 'inset(100% 0 0 0 round 999px 999px 28px 28px)' }, { clipPath: 'inset(0% 0 0 0 round 999px 999px 28px 28px)', duration: 1.5, ease: 'power3.inOut', clearProps: 'clipPath' });
+      gsap.from('.arch img', { scale: 1.14, duration: 2.4, ease: 'power3.out', clearProps: 'transform' });
+      gsap.to('.arch img', { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.phero', start: 'top top', end: 'bottom top', scrub: true } });
     }
 
     /* заголовки по строкам */
@@ -172,9 +192,9 @@
     }
 
     /* этапы: линия и смена кадра */
-    var steps = $('#steps'), stepEls = $$('.step', steps), phs = $$('#stepsPh img');
+    var steps = $('#steps'), stepEls = steps ? $$('.step', steps) : [], phs = $$('#stepsPh img');
     var sv = { v: 0 };
-    gsap.to(sv, { v: 1, ease: 'none', onUpdate: function () { steps.style.setProperty('--sp', sv.v.toFixed(3)); },
+    if (steps) gsap.to(sv, { v: 1, ease: 'none', onUpdate: function () { steps.style.setProperty('--sp', sv.v.toFixed(3)); },
       scrollTrigger: { trigger: steps, start: 'top 62%', end: 'bottom 62%', scrub: 0.4 } });
     function actStep(i) {
       stepEls.forEach(function (s, j) { s.classList.toggle('act', j <= i); });
@@ -198,7 +218,7 @@
   }
 
   /* параллакс слоёв окна от курсора */
-  if (gsap && !reduce && window.matchMedia('(hover: hover)').matches) {
+  if (gsap && !reduce && scene && window.matchMedia('(hover: hover)').matches) {
     var mo = { x: 0, y: 0 };
     $('.hero').addEventListener('pointermove', function (e) {
       gsap.to(mo, { x: (e.clientX / window.innerWidth - 0.5) * 2, y: (e.clientY / window.innerHeight - 0.5) * 2, duration: 0.9, ease: 'power3.out', overwrite: true,
@@ -212,13 +232,13 @@
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
     $$('.rv,.ph').forEach(function (el, i) { io.observe(el); });
-    new IntersectionObserver(function (es) {
+    if (scene) new IntersectionObserver(function (es) {
       var vis = es[0].isIntersecting;
       scene.classList.toggle('paused', !vis);
       if (mobTw) { vis ? mobTw.resume() : mobTw.pause(); }
     }).observe(scene);
     /* липкая панель: появляется, когда кнопки героя ушли с экрана */
-    var hb = $('.hero .btns');
+    var hb = $('.hero .btns') || $('.phero .btns');
     if (hb && $('#mbar')) {
       d.body.classList.add('mbar-off');
       new IntersectionObserver(function (es) { d.body.classList.toggle('mbar-off', es[0].isIntersecting); }).observe(hb);
@@ -247,6 +267,7 @@
   var bH = $('#bmiH'), bW = $('#bmiW'), bRes = $('#bmiRes'), bVal = $('#bmiVal'), bMark = $('#bmiMark'), bBtn = $('#bmiBtn'), bNote = $('#bmiNote');
   var zones = $$('.zones li'), zbars = $$('.scale-bar .z');
   function bmiCalc() {
+    if (!bH) return;
     var h = parseFloat(bH.value), w = parseFloat(bW.value);
     var ok = h >= 120 && h <= 220 && w >= 35 && w <= 300;
     if (!ok) {
@@ -265,11 +286,11 @@
     zbars.forEach(function (b, i) { b.classList.toggle('on', i === z); });
     bBtn.href = WA + encodeURIComponent('Здравствуйте! Мой рост ' + h + ' см, вес ' + w + ' кг, ИМТ ' + vs + '. Хочу обсудить лечение на консультации.');
   }
-  [bH, bW].forEach(function (i) { i.addEventListener('input', bmiCalc); });
+  [bH, bW].forEach(function (i) { if (i) i.addEventListener('input', bmiCalc); });
 
   /* ---------- форма записи ---------- */
   var form = $('#form');
-  form.addEventListener('submit', function (e) {
+  if (form) form.addEventListener('submit', function (e) {
     e.preventDefault();
     var f = form.elements, name = f.name.value.trim(), phone = f.phone.value.trim();
     var bad = false;
