@@ -211,5 +211,10 @@ window.SITE_EN = {
   "alt.team2": "Professor Ospanov with the center team in his office",
   "a.mbar": "Contact the center",
   "oz.more": "Indications, procedures and BMI calculator",
-  "gb.more": "GERD diagnostics and surgery"
+  "gb.more": "GERD diagnostics and surgery",
+  "dd.oz": "Obesity and type 2 diabetes",
+  "dd.gb": "Heartburn and GERD",
+  "dd.all": "All areas of treatment",
+  "ft.oz": "Obesity and type 2 diabetes treatment",
+  "ft.gb": "Heartburn and GERD treatment"
 };

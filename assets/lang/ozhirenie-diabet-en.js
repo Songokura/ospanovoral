@@ -1,4 +1,9 @@
 window.PAGE_EN = {
+  "x.h2": "Other areas of treatment",
+  "x.oh": "Hyperhidrosis, gallstone disease, hernias",
+  "x.op": "Sympathectomy for excessive sweating, laparoscopic cholecystectomy, treatment of all types of hernias.",
+  "x.oa": "All areas on the home page",
+  "x.more": "Learn more",
   "pg.home": "Home",
   "pg.f3": "First consultation online",
   "alt.lamp": "A surgeon of the center at the operating lamp",

@@ -111,8 +111,8 @@
   /* ---------- сцена героя: время суток ---------- */
   var scene = $('#scene'), tl = $$('#tline li'), mobTw = null;
   function ss(a, b, x) { x = Math.min(1, Math.max(0, (x - a) / (b - a))); return x * x * (3 - 2 * x); }
-  var prog = { hero: scene ? 0 : 1, mid: 0, dawn: 0 }; /* посадочные: сцены нет, ночь уже прожита */
-  function renderSky() { root.style.setProperty('--sky', (0.8 * ss(0.3, 1, prog.hero) + 1.2 * prog.mid + prog.dawn).toFixed(3)); }
+  var prog = { hero: 0, mid: 0, dawn: 0 };
+  function renderSky() { root.style.setProperty('--sky', (0.8 * (PAGE ? 1 : ss(0.3, 1, prog.hero)) + 1.2 * prog.mid + prog.dawn).toFixed(3)); }
   var MARKS = [0, 0.26, 0.5, 0.8], lastOn = 0;
   function setScene(p) {
     prog.hero = p;
@@ -134,12 +134,13 @@
   if (gsap && ST) {
     var mm = gsap.matchMedia();
     var hp = { v: 0 };
-    if (scene) mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', function () {
+    if (scene && !PAGE) mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', function () {
       gsap.to(hp, { v: 1, ease: 'none', onUpdate: function () { setScene(hp.v); },
         scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=190%', pin: true, scrub: 0.7, anticipatePin: 1 } });
     });
     /* телефон: сцена сама проживает ночь -> утро в первом экране, без прокрутки */
-    if (scene) mm.add('(max-width: 899px) and (prefers-reduced-motion: no-preference)', function () {
+    /* посадочные: рассвет проигрывается сам на любой ширине, без закреплённой прокрутки */
+    if (scene) mm.add(PAGE ? '(prefers-reduced-motion: no-preference)' : '(max-width: 899px) and (prefers-reduced-motion: no-preference)', function () {
       hp.v = 0; setScene(0);
       mobTw = gsap.to(hp, { v: 1, duration: 7.5, delay: 1.2, ease: 'power1.inOut', onUpdate: function () { setScene(hp.v); } });
       return function () { mobTw && mobTw.kill(); mobTw = null; };
@@ -169,13 +170,6 @@
       gsap.from('.scene', { opacity: 0.3, duration: 1.2, ease: 'power2.out' });
       gsap.from('.hero-col > *', { opacity: 0, y: 26, duration: 1, stagger: 0.08, ease: 'power3.out', delay: 0.15, clearProps: 'all' });
       gsap.from('.tline li', { opacity: 0, y: 14, duration: 0.8, stagger: 0.08, ease: 'power3.out', delay: 0.6, clearProps: 'all' });
-    }
-
-    if (!reduce && $('.phero')) {
-      gsap.from('.phero-txt > *', { opacity: 0, y: 26, duration: 1, stagger: 0.07, ease: 'power3.out', delay: 0.1, clearProps: 'all' });
-      gsap.fromTo('.arch', { clipPath: 'inset(100% 0 0 0 round 999px 999px 28px 28px)' }, { clipPath: 'inset(0% 0 0 0 round 999px 999px 28px 28px)', duration: 1.5, ease: 'power3.inOut', clearProps: 'clipPath' });
-      gsap.from('.arch img', { scale: 1.14, duration: 2.4, ease: 'power3.out', clearProps: 'transform' });
-      gsap.to('.arch img', { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.phero', start: 'top top', end: 'bottom top', scrub: true } });
     }
 
     /* заголовки по строкам */
@@ -238,7 +232,7 @@
       if (mobTw) { vis ? mobTw.resume() : mobTw.pause(); }
     }).observe(scene);
     /* липкая панель: появляется, когда кнопки героя ушли с экрана */
-    var hb = $('.hero .btns') || $('.phero .btns');
+    var hb = $('.hero .btns');
     if (hb && $('#mbar')) {
       d.body.classList.add('mbar-off');
       new IntersectionObserver(function (es) { d.body.classList.toggle('mbar-off', es[0].isIntersecting); }).observe(hb);

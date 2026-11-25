@@ -31,7 +31,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" sizes="180x180">
 <link rel="preload" href="assets/fonts/geologica-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=20261125-1">
+<link rel="stylesheet" href="styles.css?v=20261125-2">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "MedicalClinic", "@id": "https://ospanovoral.kz/#clinic", "name": "Центр хирургии ожирения и диабета профессора Орала Оспанова", "legalName": "ТОО «Центр хирургии профессора Орала Оспанова»", "url": "https://ospanovoral.kz/", "logo": "https://ospanovoral.kz/assets/img/apple-touch-icon.png", "image": "https://ospanovoral.kz/assets/img/og-image.jpg", "telephone": "+77779014647", "priceRange": "от 500 000 ₸", "address": {"@type": "PostalAddress", "streetAddress": "проспект Мангилик Ел, 72", "addressLocality": "Астана", "addressCountry": "KZ"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00"}], "hasMap": "https://2gis.kz/astana/geo/70000001089430083", "sameAs": ["https://www.instagram.com/ospanov_md/"], "medicalSpecialty": ["Surgical", "Gastroenterologic"], "availableService": [{"@type": "MedicalProcedure", "name": "Бариатрическая и метаболическая хирургия при ожирении и сахарном диабете 2 типа"}, {"@type": "MedicalProcedure", "name": "Антирефлюксные операции при ГЭРБ"}, {"@type": "MedicalProcedure", "name": "Симпатэктомия при гипергидрозе"}, {"@type": "MedicalProcedure", "name": "Лапароскопическая холецистэктомия"}, {"@type": "MedicalProcedure", "name": "Лечение грыж"}], "employee": {"@id": "https://ospanovoral.kz/#professor"}}, {"@type": "Physician", "@id": "https://ospanovoral.kz/#professor", "name": "Орал Базарбаевич Оспанов", "jobTitle": "Профессор, доктор медицинских наук", "url": "https://ospanovoral.kz/#professor", "image": "https://ospanovoral.kz/assets/photos/plate-86.webp", "telephone": "+77779014647", "medicalSpecialty": "Surgical", "worksFor": {"@id": "https://ospanovoral.kz/#clinic"}, "address": {"@type": "PostalAddress", "streetAddress": "проспект Мангилик Ел, 72", "addressLocality": "Астана", "addressCountry": "KZ"}, "sameAs": ["https://www.instagram.com/ospanov_md/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Когда пациент встаёт после операции", "acceptedAnswer": {"@type": "Answer", "text": "На следующий день после операции пациенты могут вставать."}}, {"@type": "Question", "name": "Сколько дней пациент находится в центре", "acceptedAnswer": {"@type": "Answer", "text": "После бариатрической операции выписка возможна спустя 2-3 дня, после холецистэктомии госпитализация занимает 1-2 дня."}}, {"@type": "Question", "name": "Кому показана бариатрическая операция", "acceptedAnswer": {"@type": "Answer", "text": "Операцию рассматривают при индексе массы тела от 30 при сахарном диабете 2 типа или преддиабете, от 35 - при сопутствующих заболеваниях, от 40 - независимо от них. Решение принимает врач."}}, {"@type": "Question", "name": "Как проходит наркоз", "acceptedAnswer": {"@type": "Answer", "text": "Вид анестезии подбирает анестезиолог по результатам обследования. Он осматривает пациента до операции и отвечает на вопросы о наркозе на консультации."}}, {"@type": "Question", "name": "Можно ли получить консультацию, не приезжая в Астану", "acceptedAnswer": {"@type": "Answer", "text": "Да, первая консультация проходит онлайн."}}, {"@type": "Question", "name": "Сколько стоит операция", "acceptedAnswer": {"@type": "Answer", "text": "От 500 000 ₸. Точную стоимость называют после консультации."}}]}]}</script>
 <script src="https://lead-bot.sultan-askarov-kz.workers.dev/t.js" data-site="ospanovoral" defer></script>
 </head>
@@ -55,7 +55,14 @@
   <div class="hdr-in wrap">
     <a class="logo" href="#top" aria-label="Центр хирургии ожирения и диабета профессора Орала Оспанова" data-i18n-aria="a.logo"><img src="assets/logo/logo.svg" width="2365" height="426" alt="Центр хирургии ожирения и диабета профессора Орала Оспанова" data-i18n-alt="a.logo"></a>
     <nav class="nav" id="nav" aria-label="Разделы" data-i18n-aria="a.nav">
-      <a href="#napravleniya" data-i18n="nav.treat">Что лечим</a>
+      <div class="nav-dd">
+        <a href="#napravleniya" data-i18n="nav.treat">Что лечим</a>
+        <div class="dd">
+          <a href="ozhirenie-diabet/" data-i18n="dd.oz">Ожирение и диабет 2 типа</a>
+          <a href="izzhoga-gerb/" data-i18n="dd.gb">Изжога и ГЭРБ</a>
+          <a href="#napravleniya" data-i18n="dd.all">Все направления</a>
+        </div>
+      </div>
       <a href="#operaciya" data-i18n="nav.op">Операция</a>
       <a href="#professor" data-i18n="nav.prof">Профессор</a>
       <a href="#pacienty" data-i18n="nav.pat">Пациенты</a>
@@ -470,6 +477,8 @@
     <div class="ftr-l">
       <a href="tel:+77779014647">+7&nbsp;777&nbsp;901-46-47</a>
       <a href="https://www.instagram.com/ospanov_md/" target="_blank" rel="noopener"><svg class="ic"><use href="#ic-ig"/></svg> @ospanov_md</a>
+      <a href="ozhirenie-diabet/" data-i18n="ft.oz">Лечение ожирения и диабета 2 типа</a>
+      <a href="izzhoga-gerb/" data-i18n="ft.gb">Лечение изжоги и ГЭРБ</a>
       <a href="privacy/" data-i18n="ft.pol">Политика конфиденциальности</a>
     </div>
   </div>
@@ -485,6 +494,6 @@
 <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="assets/vendor/lenis.min.js" defer></script>
-<script src="script.js?v=20261125-1" defer></script>
+<script src="script.js?v=20261125-2" defer></script>
 </body>
 </html>
