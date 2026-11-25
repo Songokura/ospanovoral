@@ -191,7 +191,6 @@
     if (!reduce && $('.hv')) {
       gsap.from('.hv-main', { clipPath: 'inset(100% 0 0 0 round 26px)', duration: 1.4, ease: 'power3.inOut', delay: 0.1, clearProps: 'clipPath' });
       gsap.from('.hv-main img', { scale: 1.12, duration: 2.2, ease: 'power3.out', clearProps: 'transform' });
-      gsap.from('.hv-col', { opacity: 0, y: 40, duration: 1.2, stagger: 0.12, ease: 'power3.out', delay: 0.35, clearProps: 'opacity,transform' });
     }
     if (reduce) setScene(1);
 

@@ -82,7 +82,7 @@ window.SITE_EN = {
 
   "pr.kick": "Professor",
   "pr.h2": "Professor Oral Bazarbaevich Ospanov",
-  "pr.lead": "Doctor of Medical Sciences, Professor, President of the Kazakhstan Society of Bariatric and Metabolic Surgeons. Head of the Department of Laparoscopic Bariatric Surgery at Astana Medical University. Author of the FundoRing method. Founder of bariatric and antireflux laparoscopic surgery in Central Asia. The center's surgeons have trained at clinics in Japan and Europe.",
+  "pr.lead": "Doctor of Medical Sciences, Professor, President of the Kazakhstan Society of Bariatric and Metabolic Surgeons. Head of the Department of Laparoscopic Bariatric Surgery at Astana Medical University. Author of the FundoRing method. Founder of bariatric and antireflux laparoscopic surgery in Central Asia.",
   "pr.stage": "Training: Berlin (2006), Porto (2011), London and Brussels (2012), Coimbatore (2013), Hollabrunn (2014).",
   "pr.btn": "Book an appointment with the professor",
   "pr.dec": "December",
