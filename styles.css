@@ -618,3 +618,4 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 .form-ok{color:var(--night)}
 .lt .main-dir{--ink:#f1f3f8;--mut:#aebad6;--line:rgba(160,180,225,.2);color:var(--ink);background:linear-gradient(160deg,#0e1b38,#1b3058)}
 .lt .num{-webkit-text-stroke-color:#b9a06a}.lt .step.act .num{-webkit-text-stroke-color:#9a7420}
+.lt .yr{color:#1d3a78}
