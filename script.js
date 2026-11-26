@@ -40,7 +40,7 @@
     root.lang = l;
     $$('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === l)); });
     bmiCalc();
-    measureHero();
+    measureHero(); placeSide();
     if (window.ScrollTrigger) window.ScrollTrigger.refresh();
   }
   function setLang(l, save) {
@@ -74,6 +74,23 @@
   measureHero();
   if (d.fonts && d.fonts.ready) d.fonts.ready.then(measureHero);
   window.addEventListener('resize', function () { if (window.innerWidth === lastW) return; lastW = window.innerWidth; measureHero(); });
+
+  /* ---------- главная: знак аккредитации и расчёт ИМТ - одна группа по центру высоты первого экрана ---------- */
+  var hHome = $('.hero-home'), hBadge = $('.hero-home .hbadge'), hCalc = $('.hero-home .hcalc');
+  function placeSide() {
+    if (!hHome || !hBadge || !hCalc) return;
+    if (window.innerWidth < 900) { hBadge.style.top = ''; hCalc.style.top = ''; hCalc.style.bottom = ''; return; }
+    var cs = getComputedStyle(root), hdr = parseFloat(cs.getPropertyValue('--hdr')) || 76, tl = parseFloat(cs.getPropertyValue('--tl')) || 104;
+    var top = hdr + 18, bottom = hHome.offsetHeight - tl - 26, gap = 22;
+    var g = hBadge.offsetHeight + gap + hCalc.offsetHeight, y = top + Math.max(0, (bottom - top - g) / 2);
+    hBadge.style.top = Math.round(y) + 'px';
+    hCalc.style.bottom = 'auto';
+    hCalc.style.top = Math.round(y + hBadge.offsetHeight + gap) + 'px';
+  }
+  placeSide();
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(placeSide);
+  window.addEventListener('resize', placeSide);
+  if (hCalc) hCalc.addEventListener('input', function () { requestAnimationFrame(placeSide); });
 
   /* ---------- шапка, меню ---------- */
   var hdr = $('#hdr'), burger = $('#burger');

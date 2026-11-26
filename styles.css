@@ -951,3 +951,15 @@ body:has(#zapis:not(.lt)) .ftr{padding-top:clamp(56px,6vw,90px);border-top:1px s
 .bmi-crit .btn{margin-top:20px}
 .lt .bmi-zones li{background:#fff;border-color:rgba(11,23,48,.1);color:var(--mut)}
 .lt .bmi-zones b{color:var(--ink)}
+
+/* ===== 27.11.2026 (2): три колонки - текст | фигура | знак + расчёт; карточка расчёта по содержимому ===== */
+@media(min-width:900px){
+  .hero-home .hv{top:calc(var(--hdr) + 22px);right:calc(max(var(--g),(100vw - 1320px)/2) + var(--hside) + 28px)}
+  .hero-home .hbadge{top:calc(var(--hdr) + 18px);left:auto;right:max(var(--g),(100vw - 1320px)/2);width:var(--hside);justify-content:flex-start;gap:18px;padding-left:6px}
+  .hero-home .hbadge-i{width:var(--hb)}
+  .hero-home .hcalc{top:auto;bottom:calc(var(--tl) + 26px);justify-content:flex-start;overflow:visible}
+}
+.hero-home{--hb:clamp(84px,min(8vw,12vh),124px)}
+@media(min-width:900px) and (max-height:820px){.hero-home{--hb:clamp(72px,10vh,96px)}.hero-home .hbadge-t b{font-size:.95rem}.hero-home .hbadge-t span{font-size:.8rem}}
+@media(min-width:900px){.hero-home .hcalc-z{display:flex;align-items:center;justify-content:center}.hero-home .hcalc-z li.on{width:100%;justify-content:center}}
+@media(min-width:900px) and (max-height:820px){.hero-home .hcalc-z{display:none}}
