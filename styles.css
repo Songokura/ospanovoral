@@ -912,3 +912,42 @@ h3{font-family:var(--fd);font-weight:400;font-size:1.3rem;line-height:1.25}
 body:has(#zapis:not(.lt)) .ftr-sky{display:none}
 body:has(#zapis:not(.lt)) .ftr{padding-top:clamp(56px,6vw,90px);border-top:1px solid rgba(160,180,225,.14)}
 .op-duo:has(.op-photo){align-items:center}.op-photo img{max-height:min(640px,80vh)}
+
+/* ===== 27.11.2026: калькулятор ИМТ в герое - шкала, ползунки, критерий; знак над фигурой ===== */
+.hero-home{--hside:clamp(300px,25vw,360px);--hb:clamp(110px,min(11vw,17vh),160px)}
+.hcalc{display:flex;flex-direction:column;gap:12px;padding:18px 18px 16px}
+.hcalc-h{margin:0;text-align:center}
+.hcalc-g{width:min(100%,280px);margin:0 auto}
+.hcalc .bmi-val span{font-size:clamp(2.2rem,17cqw,3.4rem)}
+.hcalc .bmi-seg{opacity:.85}
+.hcalc.is-on .bmi-seg{opacity:.35}
+.hcalc.is-on .bmi-seg.on{opacity:1;stroke-width:18}
+.hcalc-cat{margin:-4px 0 0;text-align:center}
+.hcalc-cat span{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(200,214,245,.25);font-size:.9rem;color:#c3cde4;transition:all var(--t2) var(--e)}
+.hcalc.is-on .hcalc-cat span{color:#fff;border-color:var(--cc);background:color-mix(in srgb,var(--cc) 18%,transparent)}
+.hcalc-z{display:block;margin:0}
+.hcalc-z li{display:none;padding:10px 12px;font-size:.82rem;text-align:center;border-radius:12px}
+.hcalc-z li b{font-size:1rem}
+.hcalc-z li.on{display:flex;align-items:center}
+.hcalc-f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hcalc .bmi-fld{padding:10px 12px 4px;border-radius:14px}
+.hcalc-r{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.hcalc .bmi-fld label{font-size:.76rem;white-space:nowrap}
+.hcalc .bmi-fld input[type=number]{width:3.6ch;font-size:1.5rem;padding:0;text-align:right;height:auto;border:0;background:none}
+.hcalc .bmi-fld .bmi-rng{height:28px}
+.hcalc-b{justify-content:center}
+@media(min-width:900px){
+  .hero-home .hv{top:calc(var(--hdr) + 26px + var(--hb));right:calc(max(var(--g),(100vw - 1320px)/2) + var(--hside) + 28px)}
+  .hero-home .hbadge{top:calc(var(--hdr) + 14px);right:calc(max(var(--g),(100vw - 1320px)/2) + var(--hside) + 28px);left:calc(max(var(--g),(100vw - 1320px)/2) + min(43vw - var(--g),600px) + 48px);width:auto;justify-content:center}
+  .hero-home .hbadge-i{width:var(--hb)}
+  .hero-home .hcalc{top:calc(var(--hdr) + 14px);bottom:calc(var(--tl) + 26px);width:var(--hside);justify-content:center;overflow:hidden}
+}
+@media(min-width:900px) and (max-height:820px){.hcalc-g{width:min(100%,220px)}.hcalc{gap:8px;padding:14px}.hcalc-z li{padding:6px 10px;font-size:.78rem}.hcalc .bmi-fld input[type=number]{font-size:1.25rem}}
+@media(min-width:900px) and (max-height:700px){.hcalc-z{display:none}.hcalc-g{width:min(100%,190px)}}
+@media(max-width:899px){.hero-home .hcalc{margin:6px var(--g) 0}.hcalc-g{width:min(100%,300px)}}
+.safe-solo{grid-template-columns:minmax(0,1fr)}
+.bmi-crit{margin-top:clamp(28px,4vw,48px)}
+.bmi-crit .fine{font-size:.9rem;color:var(--mut);margin-top:8px}
+.bmi-crit .btn{margin-top:20px}
+.lt .bmi-zones li{background:#fff;border-color:rgba(11,23,48,.1);color:var(--mut)}
+.lt .bmi-zones b{color:var(--ink)}
