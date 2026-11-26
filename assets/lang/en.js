@@ -316,5 +316,7 @@ window.SITE_EN = {
   "pz.4": "24-hour pH-impedance monitoring",
   "pz.5": "Gallstone disease",
   "pz.6": "Hernias",
-  "pz.7": "Hyperhidrosis and Raynaud's disease"
+  "pz.7": "Hyperhidrosis and Raynaud's disease",
+  "hb.c": "Category&nbsp;I",
+  "hb.s2": "of medical organizations of the Republic of Kazakhstan, 2026&#8209;2029"
 };
