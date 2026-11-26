@@ -17,6 +17,8 @@
     'bmi.low': 'Ваш ИМТ - {v}. По критериям центра операция при таком индексе не рассматривается. Вопросы о лечении можно задать на консультации.',
     'bmi.asia': 'Ваш ИМТ - {v}. Для пациентов азиатского происхождения этот индекс входит в диапазон, при котором операцию обсуждают с врачом на консультации.',
     'bmi.ok': 'Ваш ИМТ - {v}. Это значение входит в диапазон, при котором операцию обсуждают с врачом на консультации.',
+    'bmi.empty': 'Укажите рост и вес', 'bmi.cu': 'Дефицит массы тела', 'bmi.c0': 'Норма',
+    'bmi.c1': 'Избыточная масса тела', 'bmi.c2': 'Ожирение I&nbsp;степени', 'bmi.c3': 'Ожирение II&nbsp;степени', 'bmi.c4': 'Ожирение III&nbsp;степени',
     'meta.title': d.title,
     'meta.desc': ($('meta[name="description"]') || {}).content || ''
   };
@@ -383,6 +385,7 @@
     bGo(v, bFast ? .35 : .9);
   }
   function bBind(num, rng, other, otherRng) {
+    if (num && !rng) { num.addEventListener('input', function () { bFast = false; bmiCalc(); }); return; }
     if (!num || !rng) return;
     num.addEventListener('input', function () {
       var x = parseFloat(String(num.value).replace(',', '.'));
